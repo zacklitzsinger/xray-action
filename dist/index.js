@@ -361,6 +361,7 @@ function doFormDataRequest(formData, params
                     });
                     res.on('end', () => {
                         try {
+                            core.info(`Response: ${responseBody}`);
                             resolve(JSON.parse(responseBody));
                         }
                         catch (error) {
@@ -659,18 +660,24 @@ class XrayServer {
                         filename: 'report.xml',
                         filepath: 'report.xml'
                     });
-                    const importResponse = yield utils_1.doFormDataRequest(form, {
-                        protocol: this.protocol(),
-                        host: this.xrayBaseUrl.host,
-                        auth: `${this.xrayOptions.username}:${this.xrayOptions.password}`,
-                        path: `${this.xrayBaseUrl.pathname}/rest/raven/2.0/import/execution/${format}?${this.searchParams.toString()}`
-                    });
                     try {
-                        return importResponse.testExecIssue.key;
+                        const importResponse = yield utils_1.doFormDataRequest(form, {
+                            protocol: this.protocol(),
+                            host: this.xrayBaseUrl.host,
+                            auth: `${this.xrayOptions.username}:${this.xrayOptions.password}`,
+                            path: `${this.xrayBaseUrl.pathname}/rest/raven/2.0/import/execution/${format}?${this.searchParams.toString()}`
+                        });
+                        try {
+                            return importResponse.testExecIssue.key;
+                        }
+                        catch (error) {
+                            core.warning(`🔥 Response did not match expected format: ${JSON.stringify(importResponse)}`);
+                            return '';
+                        }
                     }
-                    catch (error) {
-                        core.warning(`🔥 Response did not match expected format: ${JSON.stringify(importResponse)}`);
-                        return '';
+                    catch (err) {
+                        core.error(`Request failed: ${err}`);
+                        throw err;
                     }
                 }
                 else {

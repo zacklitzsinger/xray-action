@@ -66,6 +66,7 @@ export async function doFormDataRequest(
 
         res.on('end', () => {
           try {
+            core.info(`Response: ${responseBody}`)
             resolve(JSON.parse(responseBody))
           } catch (error) {
             reject(error)
