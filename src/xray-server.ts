@@ -112,6 +112,9 @@ export class XrayServer implements Xray {
           filepath: 'report.xml'
         })
         try {
+          core.info(
+            `Using host ${this.xrayBaseUrl.host} with pathname ${this.xrayBaseUrl.pathname}`
+          )
           const importResponse = await doFormDataRequest(form, {
             protocol: this.protocol(),
             host: this.xrayBaseUrl.host,

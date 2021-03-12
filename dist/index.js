@@ -661,6 +661,7 @@ class XrayServer {
                         filepath: 'report.xml'
                     });
                     try {
+                        core.info(`Using host ${this.xrayBaseUrl.host} with pathname ${this.xrayBaseUrl.pathname}`);
                         const importResponse = yield utils_1.doFormDataRequest(form, {
                             protocol: this.protocol(),
                             host: this.xrayBaseUrl.host,
