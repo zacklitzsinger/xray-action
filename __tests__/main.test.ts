@@ -3,23 +3,22 @@ import {Processor} from '../src/processor'
 jest.setTimeout(180000)
 
 test('import test results server', async () => {
-  
   const processor = new Processor(
     {
       cloud: true,
       baseUrl: undefined,
-      username: "x",
-      password: "y"
+      username: 'x',
+      password: 'y'
     },
     {
-      testFormat: "junit",
-      testPaths: "marathon_tests/*.xml",
-      testExecKey: "",
-      projectKey: "GHXA",
-      testPlanKey: "",
-      testEnvironments: "",
-      revision: "",
-      fixVersion: "",
+      testFormat: 'junit',
+      testPaths: 'marathon_tests/*.xml',
+      testExecKey: '',
+      projectKey: 'GHXA',
+      testPlanKey: '',
+      testEnvironments: '',
+      revision: '',
+      fixVersion: '',
       testExecutionJson: undefined
     },
     {
@@ -36,29 +35,29 @@ test('import test results server', async () => {
 })
 
 test('import test results server', async () => {
-
   const processor = new Processor(
     {
       cloud: false,
-      baseUrl: new URL("https://xray-demo3.xpand-it.com"),
-      username: process.env.XRAY_USERNAME || "",
-      password: process.env.XRAY_PASSWORD || ""
+      baseUrl: new URL('https://xray-demo3.xpand-it.com'),
+      username: process.env.XRAY_USERNAME || '',
+      password: process.env.XRAY_PASSWORD || ''
     },
     {
-      testFormat: "junit",
-      testPaths: "marathon_tests/*.xml",
-      testExecKey: "",
-      projectKey: "GHXA",
-      testPlanKey: "GHXA-1",
-      testEnvironments: "",
-      revision: "",
-      fixVersion: "",
+      testFormat: 'junit',
+      testPaths: 'marathon_tests/*.xml',
+      testExecKey: '',
+      projectKey: 'GHXA',
+      testPlanKey: 'GHXA-1',
+      testEnvironments: '',
+      revision: '',
+      fixVersion: '',
       testExecutionJson: {
-        "fields": {
-            "summary": "Brand new Test execution",
-            "description": "This test execution covers the Android section of things"
+        fields: {
+          summary: 'Brand new Test execution',
+          description:
+            'This test execution covers the Android section of things'
         }
-      },
+      }
     },
     {
       combineInSingleTestExec: true,
@@ -68,7 +67,6 @@ test('import test results server', async () => {
     }
   )
   const result = await processor.process()
-  
 })
 
 /*
