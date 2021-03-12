@@ -91,12 +91,12 @@ export class Processor {
           } else {
             mimeType = tmpMime
           }
+          core.info(`Using mime type ${mimeType}`)
 
+          const fileData = await fs.promises.readFile(file)
+          core.info(`Read file successfully`)
           // execute import
-          const result = await xray.import(
-            await fs.promises.readFile(file),
-            mimeType
-          )
+          const result = await xray.import(fileData, mimeType)
           core.info(`ℹ️ Imported: ${file} (${result})`)
 
           completed++
